@@ -7,6 +7,7 @@ import '../index.css';
 import NavigationAdmin from './NavigationAdmin';
 import Navigation from './Navigation';
 import { Link } from 'react-router-dom';
+import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
 class ListMahasiswa extends Component {
   constructor(props) {
@@ -153,6 +154,26 @@ class ListMahasiswa extends Component {
 
         <div className="section-title">
           <h3>Total Jumlah Mahasiswa : <span>{this.state.jumlah_mahasiswa}</span></h3>
+        </div>
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-3">
+            <FormControl 
+              input='text' 
+              placeholder='Filter NIM' 
+              value={this.state.filter_nim} 
+              onChange={this.filterNim}
+            />
+          </div>
+          <div className="col-md-3">
+            <FormControl 
+              input='text' 
+              placeholder='Filter Nama' 
+              value={this.state.filter_nama} 
+              onChange={this.filterNama}
+            />
+          </div>
+          <div className="col-md-3"></div>
         </div>
         <div>
           {daftarMahasiswa}

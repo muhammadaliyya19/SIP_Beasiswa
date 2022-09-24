@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Beasiswa from "../contracts/Beasiswa.json";
 import getWeb3 from "../getWeb3";
-import { Button } from 'react-bootstrap';
 import NavigationAdmin from './NavigationAdmin';
 import Navigation from './Navigation';
 import '../index.css';
+import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
 class MyRegist extends Component {
   constructor(props) {
@@ -158,6 +158,19 @@ class MyRegist extends Component {
               PENDAFTARAN SAYA
             </h1>
           </div>
+        </div>
+
+        <div className="row mt-4">
+          <div className="col-md-4"></div>
+          <div className="col-md-4">
+            <FormControl 
+              input='text' 
+              placeholder='Filter Nama Beasiswa' 
+              value={this.state.filter_beasiswa} 
+              onChange={this.filterBeasiswa}
+            />
+          </div>
+          <div className="col-md-4"></div>
         </div>
 
         <div>

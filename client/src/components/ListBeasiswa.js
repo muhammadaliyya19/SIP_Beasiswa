@@ -5,6 +5,7 @@ import '../index.css';
 import NavigationAdmin from './NavigationAdmin';
 import Navigation from './Navigation';
 import { Link } from 'react-router-dom';
+import { FormGroup, FormControl, Button } from 'react-bootstrap';
 
 class ListBeasiswa extends Component {
   constructor(props) {
@@ -149,6 +150,18 @@ class ListBeasiswa extends Component {
         <div className="section-title">
           <h3>Total Jumlah Beasiswa : <span>{this.state.jumlah_beasiswa}</span></h3>
           {this.state.isOwner ? <h3>Total Jumlah Pelamar : <span>{this.state.jumlah_pelamar}</span></h3>: ""}                              
+        </div>
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-4">
+            <FormControl 
+              input='text' 
+              placeholder='Filter Nama Beasiswa' 
+              value={this.state.filter_beasiswa} 
+              onChange={this.filterBeasiswa}
+            />
+          </div>
+          <div className="col-md-4"></div>
         </div>
         <div>
           {daftarBeasiswa}
