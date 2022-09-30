@@ -128,6 +128,7 @@ class MyRegist extends Component {
                 <div>IPK : {this.state.RegistSaya[j].ipk}</div>
                 <div>ID Beasiswa : {this.state.RegistSaya[j].beasiswa_id}</div>
                 <div>Nama Beasiswa : {this.state.RegistSaya[j].namaBeasiswa}</div>
+                <div>File KHS : <a class="nav-link h4 scrollto" target="_blank" href={this.state.RegistSaya[j].urlKHS}>{this.state.RegistSaya[j].fileKhs}</a></div>
               </div>
 
               <div className="CandidateDetails">

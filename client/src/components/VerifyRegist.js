@@ -176,6 +176,7 @@ class VerifyRegist extends Component {
                   <div>IPK : {this.state.SemuaRegist[j].ipk}</div>
                   <div>ID Beasiswa : {this.state.SemuaRegist[j].beasiswa_id}</div>
                   <div>Nama Beasiswa : {this.state.SemuaRegist[j].namaBeasiswa}</div>
+                  <div>File KHS : <a class="nav-link h4 scrollto" target="_blank" href={this.state.SemuaRegist[j].urlKHS}>{this.state.SemuaRegist[j].fileKhs}</a></div>
                   <div>{alasanLolos}</div>
                 </div>
                 <div className="CandidateDetails">            

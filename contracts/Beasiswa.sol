@@ -65,13 +65,15 @@ contract Beasiswa {
         address id_mhs;
         uint is_verified;
         string ipk;
+        string fileKhs;
+        string urlKHS;
         string alasan;
         uint beasiswa_id;
     }
 
     mapping(uint => MahasiswaPelamar) public list_mahasiswa_pendaftar;
 
-    function mendaftarBeasiswa(uint _beasiswa_id, string _ipk) public {
+    function mendaftarBeasiswa(uint _beasiswa_id, string _ipk, string file_, string url_) public {
         uint kuota = List_Beasiswa[_beasiswa_id].kuota;
         uint jumlah_pendaftar = List_Beasiswa[_beasiswa_id].jumlah_pendaftar;
         // Harus masih ada kuota tersisa
@@ -85,7 +87,9 @@ contract Beasiswa {
             is_verified : 0,
             alasan : "",
             ipk : _ipk,
-            beasiswa_id : _beasiswa_id
+            beasiswa_id : _beasiswa_id,
+            fileKhs : file_,
+            urlKHS : url_
         });
         list_mahasiswa_pendaftar[jumlah_pendaftar_all] = newMahasiswaPelamar;
         List_Beasiswa[_beasiswa_id].jumlah_pendaftar += 1;

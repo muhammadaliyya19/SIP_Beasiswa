@@ -4,20 +4,26 @@ import getWeb3 from "../getWeb3";
 import NavigationAdmin from './NavigationAdmin';
 import Navigation from './Navigation';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
-
+import * as filestack from 'filestack-js';
+// const client = filestack.init('A9Cp7gizZS1uCciQzfBZSz');
 class RegistBeasiswa extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       BeasiswaInstance: undefined,
+      client: undefined,
       account: null,
       web3: null,
+      client_filestack: null,
+      options: null,
       nama: '',
       nim: '',
       ipk: 0,
       ttl: '',
       alamat: '',
+      fileKHS: "Pilih File KHS (Pdf Only)",
+      urlKHS: null,
       beasiswa_id: null,
       terdaftar: false,
       is_verified: 0,
@@ -29,8 +35,16 @@ class RegistBeasiswa extends Component {
     this.setState({ ipk: event.target.value });
   }
 
+  updateFileKHS = (res) => {
+    console.log(res);
+    this.setState({ urlKHS: res.filesUploaded[0].url, fileKHS: res.filesUploaded[0].filename });
+  }
+
   lamarBeasiswa = async () => {
-    await this.state.BeasiswaInstance.methods.mendaftarBeasiswa(this.state.beasiswa_id, this.state.ipk).send({ from: this.state.account, gas: 1000000 });
+    console.log("filename", this.state.fileKHS);
+    console.log("url", this.state.urlKHS);
+    await this.state.BeasiswaInstance.methods.mendaftarBeasiswa(this.state.beasiswa_id, this.state.ipk, this.state.fileKHS, this.state.urlKHS).send({ from: this.state.account, gas: 1000000 });
+    // await this.state.BeasiswaInstance.methods.mendaftarBeasiswa(this.state.beasiswa_id, this.state.ipk).send({ from: this.state.account, gas: 1000000 });
     // Reload
     window.location.href= '/MyRegist';
         // window.location.reload(false);
@@ -42,9 +56,25 @@ class RegistBeasiswa extends Component {
       window.location = window.location + '#loaded';
       window.location.reload();
     }
+    
     try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
+
+      // Init filestack
+      var cli_filestack = filestack.init('A9Cp7gizZS1uCciQzfBZSz'); 
+      this.setState({ client_filestack: cli_filestack });
+
+      const options = {
+        maxFiles: 20,
+        uploadInBackground: false,
+        onOpen: () => console.log('opened!'),
+        onUploadDone: (res) => {
+          console.log(res); 
+          this.updateFileKHS(res);
+        },
+      };
+      this.setState({ options: options });      
 
       // Use web3 to get the user's accounts.
       const accounts = await web3.eth.getAccounts();
@@ -172,16 +202,36 @@ class RegistBeasiswa extends Component {
                       />
                     </div>
                   </FormGroup>
-                  <FormGroup>
-                    <label>IPK</label>
-                    <div className="form-input">
-                      <FormControl
-                        input='text'
-                        value={this.state.ipk}
-                        onChange={this.updateIPK}
-                      />
+                  <div className="row">
+                    <div className="col-8">
+                      <FormGroup>
+                        <label>IPK</label>
+                        <div className="form-input">
+                          <FormControl
+                            input='text'
+                            value={this.state.ipk}
+                            onChange={this.updateIPK}
+                          />
+                        </div>
+                      </FormGroup>
                     </div>
-                  </FormGroup>
+                    <div className="col-4">
+                    <FormGroup>
+                      <label>File KHS</label><br></br>
+                      <div className="form-input">
+                          <Button variant="primary" type="submit" className="form-control"
+                            onClick={() => (
+                              this.state.client_filestack.picker(
+                                this.state.options
+                              ).open()
+                            )}
+                          >
+                            {this.state.fileKHS}
+                          </Button>
+                        </div>                      
+                      </FormGroup>
+                    </div>                    
+                  </div>                    
                   <FormGroup>
                     <label>Tempat / Tanggal Lahir</label>
                     <div className="form-input">
@@ -224,6 +274,11 @@ class RegistBeasiswa extends Component {
           
           </div>
 
+          <script crossorigin src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+          <script type="javascript">
+            const client = filestack.init("A9Cp7gizZS1uCciQzfBZSz");
+            client.picker().open();
+          </script>
 
         </div>
       );
