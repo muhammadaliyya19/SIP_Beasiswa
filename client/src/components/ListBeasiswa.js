@@ -121,7 +121,8 @@ class ListBeasiswa extends Component {
                     <span className="text-danger"> Kuota Sudah Terpenuhi </span>
                   )
                 )
-              )}
+              )}||
+              {<Link to={`LihatPeserta/${Data_Beasiswa.id}`}> Lihat Daftar Peserta </Link>}
             </div>
             <div className="CandidateDetails">
               <div>Deskripsi : {Data_Beasiswa.deskripsi}</div>

@@ -19,7 +19,7 @@ class RegistBeasiswa extends Component {
       options: null,
       nama: '',
       nim: '',
-      ipk: 0,
+      ipk: '',
       ttl: '',
       alamat: '',
       fileKHS: "Pilih File KHS (Pdf Only)",

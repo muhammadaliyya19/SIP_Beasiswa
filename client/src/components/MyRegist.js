@@ -106,7 +106,7 @@ class MyRegist extends Component {
           let alasan_verif = [];
           // pendaftaran.is_verified='1';
           if (this.state.RegistSaya[j].is_verified=='1') {
-            tombol_verif.push(<Button className="btn btn-success">Anda Terverifikasi</Button>);
+            tombol_verif.push(<Button className="btn btn-success">Anda Lolos Verifikasi Tahap Satu</Button>);
             tombol_verif.push(<p>Silakan Akses Link Berikut Untuk Melanjutkan Proses Pendaftaran.</p>);
             tombol_verif.push(<a class="nav-link h4 scrollto" target="_blank" href={`https:///${this.state.RegistSaya[j].linkBeasiswa}`}>{this.state.RegistSaya[j].linkBeasiswa}</a>);
             alasan_verif.push("Alasan Kelolosan : ");
@@ -115,6 +115,10 @@ class MyRegist extends Component {
             tombol_verif.push(<Button onClick={this.is_verified} value={this.state.RegistSaya[j].id_mhs} className="btn btn-danger">Maaf Anda Belum Lolos</Button>);                
             alasan_verif.push("Alasan Tidak Lolos : ");
             alasan_verif.push(this.state.RegistSaya[j].alasan);
+          }else if (this.state.RegistSaya[j].is_verified==='3') {
+            tombol_verif.push(<Button className="btn btn-success">Selamat! Anda Lolos Beasiswa Ini</Button>);            
+          }else if (this.state.RegistSaya[j].is_verified==='4') {
+            tombol_verif.push(<Button className="btn btn-danger">Maaf. Anda Belum Lolos Beasiswa Ini</Button>);            
           }else{
             tombol_verif.push(<Button onClick={this.is_verified} value={this.state.RegistSaya[j].id_mhs} className="btn btn-warning">Data Belum Diverifikasi</Button>);
           }

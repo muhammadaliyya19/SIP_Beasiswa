@@ -168,7 +168,7 @@ class AddBeasiswa extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <label>Main Link</label>
+                        <label>Link Tahap Dua</label>
                         <div className="form-input">
                             <FormControl
                                 input='text'

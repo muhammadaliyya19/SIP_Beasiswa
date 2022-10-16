@@ -13,6 +13,7 @@ import AddBeasiswa from './components/AddBeasiswa';
 import ListBeasiswa from './components/ListBeasiswa';
 import RegistBeasiswa from './components/RegistBeasiswa';
 import VerifyRegist from './components/VerifyRegist';
+import LihatPeserta from './components/LihatPeserta';
 import MyRegist from './components/MyRegist';
 import Home from './components/Home';
 
@@ -30,6 +31,7 @@ ReactDOM.render(
             <Route path='/ListBeasiswa' component={ListBeasiswa} />
             <Route path='/ListMahasiswa' component={ListMahasiswa} />
             <Route path='/RegistBeasiswa/:id_beasiswa' component={RegistBeasiswa} />
+            <Route path='/LihatPeserta/:id_beasiswa' component={LihatPeserta} />
             <Route path='/VerifyRegist/:id_beasiswa' component={VerifyRegist} />
             <Route path='/VerifyRegist/VerifyMhs/:id_mahasiswa' component={VerifyRegist} />
             <Route path='/MyRegist' component={MyRegist} />            
