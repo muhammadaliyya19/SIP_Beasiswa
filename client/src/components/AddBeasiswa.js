@@ -7,6 +7,12 @@ import NavigationAdmin from './NavigationAdmin';
 import Navigation from './Navigation';
 import emailjs from '@emailjs/browser';
 
+import Web3 from "web3";
+const provider = new Web3.providers.HttpProvider(
+    "http://127.0.0.1:8545"
+);
+const web3_ = new Web3('http://');
+web3_.setProvider(provider);
 class AddBeasiswa extends Component {
     constructor(props) {
         super(props)
@@ -56,13 +62,34 @@ class AddBeasiswa extends Component {
         emailjs.send('service_pfikdd8', 'template_4ok708j', data_email, 'BEt5phAuTwtxz4Nhw');
     }
 
+    compareByteCode = async() => {
+        try {
+            const bchainCode = web3_.eth.getCode('0x2c6b1EAa4b12428db4AF8206Ad3B13ce676950e1');
+            const herexCode = "0x" + Beasiswa.deployedBytecode;
+            // console.log(Beasiswa);
+            console.log("Herex Code JSON\n");
+            console.log(herexCode + "\n");
+            console.log("Blockhain Code from Web3\n");
+            console.log(bchainCode);
+            if (bchainCode == herexCode) {
+                console.log('\n DeployedByteCode dan Bytecode dari getCode sama!');
+            }else{
+                console.log('\n DeployedByteCode dan Bytecode dari getCode tidak sama!');
+            }
+          } catch (error) {
+            // Catch any errors for any of the above operations.
+            console.log(error);
+          }
+    }
+
     //pemamggilan method penambahan beasiswa dan parameter2
     penambahanBeasiswa = async () => {
         console.log('OTW send email');
         this.sendNotifEmail();
         console.log('Beres send email');
         await this.state.BeasiswaInstance.methods.penambahanBeasiswa(this.state.judul, this.state.deskrpsi, this.state.main_link, this.state.kuota).send({ from: this.state.account, gas: 1000000 });
-        window.location.href= '/ListBeasiswa';
+        this.compareByteCode();
+        // window.location.href= '/ListBeasiswa';
     }
      //menyapkan 1 halaman yang siap digunakan
     componentDidMount = async () => {
