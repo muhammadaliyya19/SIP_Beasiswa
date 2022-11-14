@@ -257,21 +257,23 @@ class LihatPeserta extends Component {
               break;
             }
             
-            allRegist.push(
-              <div className="candidate">
-                <div className="candidateName">{this.state.SemuaRegist[j].nama} || {statusVerif}</div>
-                <div className="CandidateDetails">            
-                  <div>NIM : {this.state.SemuaRegist[j].nim}</div>
-                  <div>Alamat : {this.state.SemuaRegist[j].alamat}</div>
-                  <div>IPK : {this.state.SemuaRegist[j].ipk}</div>
-                  <div>ID Beasiswa : {this.state.SemuaRegist[j].beasiswa_id}</div>
-                  <div>Nama Beasiswa : {this.state.SemuaRegist[j].namaBeasiswa}</div>
-                  <div>{alasanLolos}</div>
+            if (this.state.isOwner) {
+              // Admin views
+              allRegist.push(
+                <div className="candidate">
+                  <div className="candidateName">{this.state.SemuaRegist[j].nama} || {statusVerif}</div>
+                  <div className="CandidateDetails">            
+                    <div>NIM : {this.state.SemuaRegist[j].nim}</div>
+                    <div>Alamat : {this.state.SemuaRegist[j].alamat}</div>
+                    <div>IPK : {this.state.SemuaRegist[j].ipk}</div>
+                    <div>ID Beasiswa : {this.state.SemuaRegist[j].beasiswa_id}</div>
+                    <div>Nama Beasiswa : {this.state.SemuaRegist[j].namaBeasiswa}</div>
+                    <div>{alasanLolos}</div>
+                  </div>
+                  <br></br>
                 </div>
-                <br></br>
-              </div>
-            );
-            tableRegist.push(                
+              );
+              tableRegist.push(                
                 <tr>
                     <td>{this.state.SemuaRegist[j].nama}</td>
                     <td>{this.state.SemuaRegist[j].nim}</td>
@@ -280,7 +282,31 @@ class LihatPeserta extends Component {
                     <td>{this.state.SemuaRegist[j].namaBeasiswa}</td>
                     <td>{statusVerif}</td>
                 </tr>
-            );
+              );
+              
+              }else{
+              // Student views
+              allRegist.push(
+                <div className="candidate">
+                  <div className="candidateName">{this.state.SemuaRegist[j].nama} || {statusVerif}</div>
+                  <div className="CandidateDetails">            
+                    <div>ID Beasiswa : {this.state.SemuaRegist[j].beasiswa_id}</div>
+                    <div>Nama Beasiswa : {this.state.SemuaRegist[j].namaBeasiswa}</div>
+                    <div>{alasanLolos}</div>
+                  </div>
+                  <br></br>
+                </div>
+              );
+
+              tableRegist.push(                
+                <tr>
+                    <td>{this.state.SemuaRegist[j].nama}</td>
+                    <td>{this.state.SemuaRegist[j].namaBeasiswa}</td>
+                    <td>{statusVerif}</td>
+                </tr>
+              );
+            
+            }            
           }        
         }    
       }else{
@@ -328,14 +354,22 @@ class LihatPeserta extends Component {
             <div className="col-md-2"></div>            
             <div className="col-md-8">
             <table className="table table-bordered">
+                {this.state.isOwner ? 
                     <tr>
-                        <th>Nama</th>
-                        <th>NIM</th>
-                        <th>Alamat</th>
-                        <th>IPK</th>
-                        <th>Nama Beasiswa</th>
-                        <th>Status Kelolosan</th>
-                    </tr>
+                      <th>Nama</th>
+                      <th>NIM</th>
+                      <th>Alamat</th>
+                      <th>IPK</th>
+                      <th>Nama Beasiswa</th>
+                      <th>Status Kelolosan</th>
+                  </tr> 
+                  : 
+                  <tr>
+                    <th>Nama</th>
+                    <th>Nama Beasiswa</th>
+                    <th>Status Kelolosan</th>
+                </tr>
+                }                    
                     {tableRegist}                
             </table>
             </div>
